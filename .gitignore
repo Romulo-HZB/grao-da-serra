@@ -1,10 +1,2 @@
-# Dependências (reinstaladas com npm install)
 node_modules/
-
-# Instância MySQL local do projeto (dados, logs e my.ini gerado)
-mysql/
-
-# Sistema
-Thumbs.db
-desktop.ini
-.DS_Store
+banco/

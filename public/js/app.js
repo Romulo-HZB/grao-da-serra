@@ -91,11 +91,16 @@ function statusBanco(ok, texto) {
 // ------------------------------ mensagens ----------------------------
 // Local fixo da tela para as mensagens do banco (SIGNAL) e confirmações.
 function mostrarMensagem(texto, tipo = 'erro') {
+  // Título: confirmação, falta de conexão ou recusa do banco (SIGNAL)
+  let titulo = 'O banco recusou a operação';
+  if (tipo !== 'erro') titulo = 'Tudo certo';
+  else if (/conectar|comunicação/i.test(texto)) titulo = 'Sem conexão com o banco';
+
   const caixa = document.createElement('div');
   caixa.className = `msg msg-${tipo}`;
   caixa.innerHTML = `
     <span class="msg-icone"><svg><use href="#${tipo === 'erro' ? 'i-alerta' : 'i-check'}"/></svg></span>
-    <p><span class="msg-titulo">${tipo === 'erro' ? 'O banco recusou a operação' : 'Tudo certo'}</span>${esc(texto)}</p>
+    <p><span class="msg-titulo">${titulo}</span>${esc(texto)}</p>
     <button type="button" aria-label="Fechar mensagem"><svg><use href="#i-x"/></svg></button>`;
   caixa.querySelector('button').onclick = () => caixa.remove();
   const area = $('#mensagens');

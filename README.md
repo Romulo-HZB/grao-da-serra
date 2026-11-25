@@ -1,27 +1,20 @@
 # Empório & Café Grão da Serra
 
-Exercício prático de Banco de Dados: **functions, procedures, views e triggers** (questões 1 a 15) e **interface conectada ao banco** (questão 16).
+Exercício de Banco de Dados: **functions, procedures, views e triggers** (questões 1 a 15) e **interface conectada ao banco** (questão 16).
 
-## Onde está cada questão
-
-| Questões | Arquivo |
-|---|---|
-| **1 a 15** | [`sql/02_solucoes.sql`](sql/02_solucoes.sql): 3 functions, 4 procedures, 4 views e 4 triggers |
-| 16 (interface) | [`public/`](public) (telas) e [`server/`](server) (servidor intermediário) |
-| 16 (descrição da conexão) | seção [Descrição da conexão](#descrição-da-conexão), mais abaixo |
-
-### Todos os arquivos
+## O que tem aqui
 
 | Arquivo / pasta | Para que serve |
 |---|---|
-| `sql/01_criacao_banco.sql` | Script fornecido no enunciado: cria o banco `grao_da_serra`, as 7 tabelas e os dados de teste. |
-| `sql/02_solucoes.sql` | Soluções das questões 1 a 15. Pode ser executado mais de uma vez. |
-| `sql/03_extras_interface.sql` | Extras usados pela interface: view `vw_itens_pedido`, trigger que impede remover item de pedido encerrado e o usuário `grao_app`. |
-| `sql/04_testes.sql` | Todos os testes do enunciado, na ordem, com os resultados esperados. |
-| `server/` | Servidor em Node.js (Express + mysql2). |
-| `public/` | Interface web (HTML, CSS e JavaScript). `public/js/api.js` é o módulo único de acesso a dados. |
-| `.env` | Dados de acesso ao banco usados pelo servidor. |
-| `INSTALAR.bat`, `INICIAR-SISTEMA.bat`, `scripts/` | Scripts para instalar e ligar tudo no Windows. |
+| `sql/01_criacao_banco.sql` | Script do enunciado: cria o banco `grao_da_serra`, as tabelas e os dados de teste. |
+| `sql/02_solucoes.sql` | **Questões 1 a 15**: 3 functions, 4 procedures, 4 views e 4 triggers. |
+| `sql/03_extras.sql` | Extras usados pela interface (não fazem parte das questões): a view `vw_itens_pedido`, para mostrar a comanda, e um trigger que só deixa remover itens de pedidos ABERTOS. |
+| `sql/04_testes.sql` | Roteiro de testes das questões 1 a 15, com os resultados esperados. |
+| `server.js` | **Questão 16 (conexão)**: servidor intermediário em Node.js que liga a página ao MySQL. |
+| `public/js/api.js` | **Questão 16**: módulo único de acesso a dados da interface (uma função por operação). |
+| `public/index.html`, `public/css/style.css`, `public/js/app.js` | **Questão 16 (interface)**: telas, estilo e navegação. |
+| `package.json` | Bibliotecas do servidor: express e mysql2. |
+| `INSTALAR.bat`, `INICIAR.bat`, `PARAR-BANCO.bat`, `scripts/` | Atalhos para instalar e ligar tudo no Windows (opção A abaixo). |
 
 ## Como executar
 
@@ -29,27 +22,22 @@ Pré-requisitos: **MySQL Server 8** e **Node.js** (versão 18 ou mais nova).
 
 ### Opção A: automática (Windows)
 
-1. Dê dois cliques em **`INSTALAR.bat`**. Ele cria uma instância MySQL própria do projeto na pasta `mysql\` (porta **3307**, sem precisar de administrador), executa os scripts `01`, `02` e `03` e instala as dependências (`npm install`).
-2. Dê dois cliques em **`INICIAR-SISTEMA.bat`**. O navegador abre em `http://localhost:3000`.
+Cria um banco só desta pasta (porta **3308**, usuário root sem senha). Não usa nem altera o MySQL que já estiver instalado no computador.
 
-Para abrir essa instância no Workbench: host `127.0.0.1`, porta `3307`, usuário `root`, sem senha.
+1. Dê dois cliques em **`INSTALAR.bat`** (só na primeira vez, ou para voltar os dados ao início).
+2. Dê dois cliques em **`INICIAR.bat`**. O navegador abre em `http://localhost:3001`.
+3. Para desligar: feche a janela do servidor e execute **`PARAR-BANCO.bat`**.
 
-### Opção B: com um MySQL já instalado (porta 3306)
+### Opção B: com um MySQL já instalado (Workbench)
 
-1. No MySQL Workbench, execute em ordem: `sql/01_criacao_banco.sql`, `sql/02_solucoes.sql` e `sql/03_extras_interface.sql`.
-2. No arquivo `.env`, troque `DB_PORT=3307` por `DB_PORT=3306`.
-3. Em um terminal, na pasta do projeto:
-   ```bash
-   npm install
-   npm start
-   ```
-4. Abra `http://localhost:3000`.
-
-Para testar as questões 1 a 15 no Workbench, use `sql/04_testes.sql`. Os comandos marcados como "ERRO ESPERADO" devem ser executados um de cada vez (Ctrl+Enter), porque um erro interrompe a execução do script inteiro.
+1. No Workbench, execute `sql/01_criacao_banco.sql`, `sql/02_solucoes.sql` e `sql/03_extras.sql`, nessa ordem.
+2. No começo do `server.js`, troque `port: 3308` pela porta do seu MySQL (normalmente `3306`) e coloque a senha do root em `password`.
+3. Na pasta do projeto, rode `npm install` e depois `npm start`.
+4. Abra `http://localhost:3001`.
 
 ## Resultados dos testes
 
-Todos os testes do enunciado devolveram os valores esperados:
+Todos os testes do enunciado (`sql/04_testes.sql`) devolveram os valores esperados:
 
 - `fn_total_pedido(1)`, `(3)` e `(99)`: 34.00, 57.90 e 0.00
 - Desconto de fidelidade: 10 para a cliente 1, 5 para o cliente 2 e 0 para os demais
@@ -59,22 +47,32 @@ Todos os testes do enunciado devolveram os valores esperados:
 - Histórico de preços: 3 linhas por reajuste e nenhuma linha quando só o estoque muda
 - Todas as recusas devolvem mensagem em português (`SIGNAL SQLSTATE '45000'`)
 
+No Workbench, os comandos marcados como "ERRO ESPERADO" devem ser executados um de cada vez (Ctrl+Enter), porque um erro interrompe o script inteiro.
+
 > **Observação sobre a questão 14:** dentro de um trigger, `CURRENT_USER()` devolve o *definer* do trigger, isto é, quem o criou (por exemplo, `root@localhost`), e não o usuário que fez o `UPDATE`. Foi usado `CURRENT_USER()` porque é o que o enunciado pede. Para registrar o usuário conectado, seria usado `USER()`.
 
-## Interface
+## Como a conexão funciona
 
-Quatro telas, que funcionam no computador e no celular:
+```
+Página (api.js)  --fetch-->  server.js (Express + mysql2)  --SQL-->  MySQL grao_da_serra
+                 <--JSON---                                <--------
+```
 
-- **Cardápio:** dados da view `vw_cardapio`, agrupados por categoria. Produtos esgotados aparecem desabilitados e os que precisam de reposição mostram "Últimas unidades".
-- **Novo pedido:** escolha de cliente e atendente, `sp_abrir_pedido`, `sp_adicionar_item`, remoção de item (`DELETE` em `item_pedido`) e `sp_finalizar_pedido`, com recibo mostrando o desconto e o total gravados pelo banco.
-- **Pedidos:** view `vw_pedidos_detalhados` com filtro por status. Pedidos abertos podem ser retomados.
-- **Gerência:** views `vw_produtos_para_repor` e `vw_vendas_por_categoria`, reajuste de preços (`sp_reajustar_precos_categoria`) e histórico de preços.
+O `server.js` usa três padrões:
 
-A interface não calcula totais, descontos nem estoque. Ela exibe o que as views devolvem e chama as procedures. As mensagens de erro das procedures e dos triggers aparecem no canto superior da tela.
+- **View:** `GET /api/cardapio` executa `SELECT * FROM vw_cardapio`.
+- **Procedure:** `POST /api/pedidos/:id/itens` executa `CALL sp_adicionar_item(?, ?, ?)`.
+- **Procedure com parâmetro OUT:** `POST /api/pedidos` executa `CALL sp_abrir_pedido(?, ?, @id)` e depois `SELECT @id`.
+
+Quando uma procedure ou um trigger recusa a operação com `SIGNAL`, o servidor devolve `{ erro: "mensagem" }`, e a tela mostra a mensagem no canto superior. Se o banco estiver desligado, a tela avisa "Sem conexão com o banco". Os triggers não aparecem no servidor: eles rodam sozinhos no banco quando um item é inserido ou removido, ou quando um preço ou pedido muda.
 
 ## Descrição da conexão
 
-A interface foi feita como página web (HTML, CSS e JavaScript), e como o navegador não consegue se conectar diretamente ao MySQL, foi criado um programa intermediário em **Node.js** com o framework **Express** e o conector **mysql2**. O servidor (`server/server.js`) entrega a página e oferece rotas `/api/...`; cada rota apenas executa um comando no banco e devolve o resultado em JSON, sem nenhuma regra de negócio. Os dados de acesso (host, porta, usuário `grao_app`, senha e nome do banco) ficam no arquivo `.env`, lido pelo módulo `server/db.js`, que cria um pool de conexões. O usuário `grao_app` só pode ler as views e as tabelas de apoio e executar as procedures, então a interface não altera as tabelas diretamente. No navegador, todo o acesso a dados fica no módulo `public/js/api.js`, que tem uma função por operação. Por exemplo, para mostrar o cardápio, `listarCardapio()` faz um `fetch` para `/api/cardapio`, e o servidor executa `SELECT * FROM vw_cardapio`. Para abrir um pedido, `abrirPedido()` envia um POST para `/api/pedidos`, e o servidor executa `CALL sp_abrir_pedido(?, ?, @id_pedido)` seguido de `SELECT @id_pedido` na mesma conexão, para ler o parâmetro OUT. Quando uma procedure ou trigger recusa a operação com `SIGNAL`, o servidor devolve a mensagem em português e a interface a exibe na área de mensagens. Depois de cada operação, a tela é recarregada a partir das views, porque os triggers mudam o estoque e a situação dos produtos.
+A interface foi feita como página web (HTML, CSS e JavaScript). Como o navegador não se conecta diretamente ao MySQL, foi criado um programa intermediário em **Node.js**, com o framework **Express** e o conector **mysql2**. Esse programa fica no arquivo `server.js`, que entrega a página e oferece rotas `/api/...`. Os dados de acesso ao banco (servidor, porta, usuário, senha e nome do banco `grao_da_serra`) ficam no começo do `server.js`, no `mysql.createPool`, e nunca chegam ao navegador. O pool foi configurado com uma única conexão, porque o parâmetro OUT de `sp_abrir_pedido` fica numa variável (`@id`) que só existe dentro da conexão que fez o `CALL`. Na página, todo o acesso a dados fica no módulo `public/js/api.js`, que tem uma função por operação e usa `fetch` para chamar o servidor. Por exemplo, para mostrar o cardápio, `listarCardapio()` pede `/api/cardapio`, e o servidor executa `SELECT * FROM vw_cardapio` e devolve as linhas em JSON. Para adicionar um item, `adicionarItem()` envia um POST para `/api/pedidos/:id/itens`, e o servidor executa `CALL sp_adicionar_item(?, ?, ?)` com os valores recebidos. Para abrir um pedido, o servidor executa `CALL sp_abrir_pedido(?, ?, @id)` e depois `SELECT @id`. Se uma procedure ou um trigger recusar a operação com `SIGNAL`, a mensagem em português volta para a página e é exibida na tela. Depois de cada operação, a tela recarrega os dados das views, porque os triggers mudam o estoque e a situação dos produtos.
+
+## Versão completa
+
+Esta é a versão simplificada. Existe também uma versão com usuário de banco de permissões restritas (`grao_app`), dados de acesso em arquivo `.env` e pool com várias conexões, no branch [`versao-completa`](https://github.com/Romulo-HZB/grao-da-serra/tree/versao-completa).
 
 ## Prompt usado para a interface (trechos preenchidos)
 

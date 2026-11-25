@@ -2,7 +2,7 @@
 // api.js — MÓDULO ÚNICO DE ACESSO A DADOS
 //
 // Toda comunicação da interface com o banco passa por este arquivo.
-// Cada função chama uma rota do servidor intermediário (server/server.js),
+// Cada função chama uma rota do servidor intermediário (server.js),
 // que executa um SELECT em uma view ou um CALL em uma procedure.
 // As funções devolvem os dados com os mesmos nomes de colunas do banco.
 // =====================================================================
