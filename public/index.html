@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f130d">
+  <title>Grão da Serra · Pedidos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- =============================================================
+       Ícones (SVG sprite) — navegação, ações e categorias
+       ============================================================= -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-grao" viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="10" ry="13" transform="rotate(35 16 16)" fill="currentColor"/><path d="M10.5 24.5c4-3 2-8.5 5.5-12.5 2.3-2.6 5-3.2 5-3.2" fill="none" stroke="var(--grao-risco, #1f130d)" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-cardapio" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4Z M9 9h6 M9 13h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pedido" viewBox="0 0 24 24"><path d="M4 9h13v4a6.5 6.5 0 0 1-13 0V9Z M17 10.5h1.5a2.5 2.5 0 0 1 0 5H16.5 M8 3.5c0 1 1 1.5 1 2.5 M12 3.5c0 1 1 1.5 1 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lista" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z M9 8h6 M9 12h6 M9 16h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-gerencia" viewBox="0 0 24 24"><path d="M4 20V11 M10 20V5 M16 20v-6 M21 20H3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-seta-cima" viewBox="0 0 24 24"><path d="M12 19V5 M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-seta-baixo" viewBox="0 0 24 24"><path d="M12 5v14 M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4L12 4Z M12 10v4.5 M12 17.2v.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <!-- categorias -->
+    <symbol id="c-cafes" viewBox="0 0 32 32"><path d="M6 13h16v5a8 8 0 0 1-16 0v-5Z M22 15h2a3 3 0 0 1 0 6h-2.6 M11 5.5c0 1.5 1.5 2 1.5 3.5 M16 5.5c0 1.5 1.5 2 1.5 3.5 M5 28h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="c-geladas" viewBox="0 0 32 32"><path d="M8 9h16l-2 18H10L8 9Z M18 9l3-6h3 M9 16h14 M13 20.5h.01 M17.5 22.5h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="c-salgados" viewBox="0 0 32 32"><path d="M4 19c2-7 7-11 12-11s10 4 12 11c-3 3-7 5-12 5s-9-2-12-5Z M11 11.5l2.5 11 M21 11.5l-2.5 11 M16 8v16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="c-doces" viewBox="0 0 32 32"><path d="M5 25V15L26 8v17H5Z M5 19.5h21 M26 8l-4.5-2.5L5 15 M14 6.5c0-1.6 1.2-2.5 1.2-2.5s1.2.9 1.2 2.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="c-emporio" viewBox="0 0 32 32"><path d="M10 9h12v3c2 1.5 3 3.5 3 6v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8c0-2.5 1-4.5 3-6V9Z M9 5h14v4H9z M7 19h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <div class="app">
+    <!-- ================= Navegação (lateral no PC, inferior no celular) ================= -->
+    <nav class="nav" aria-label="Telas do sistema">
+      <div class="marca">
+        <svg class="marca-grao"><use href="#i-grao"/></svg>
+        <div class="marca-texto">
+          <strong>Grão da Serra</strong>
+          <span>Empório &amp; Café</span>
+        </div>
+      </div>
+      <div class="nav-itens">
+        <button class="nav-btn ativo" data-tela="cardapio"><svg><use href="#i-cardapio"/></svg><span>Cardápio</span></button>
+        <button class="nav-btn" data-tela="novo"><svg><use href="#i-pedido"/></svg><span>Novo pedido</span><b class="nav-badge" id="badgePedido" hidden></b></button>
+        <button class="nav-btn" data-tela="pedidos"><svg><use href="#i-lista"/></svg><span>Pedidos</span></button>
+        <button class="nav-btn" data-tela="gerencia"><svg><use href="#i-gerencia"/></svg><span>Gerência</span></button>
+      </div>
+      <div class="nav-rodape">
+        <span class="status-banco" id="statusBanco"><i></i><span>Conectando…</span></span>
+      </div>
+    </nav>
+
+    <main class="conteudo">
+      <!-- Área fixa de mensagens do banco (SIGNAL) e confirmações -->
+      <div id="mensagens" class="mensagens" role="status" aria-live="polite"></div>
+
+      <!-- =========================== CARDÁPIO =========================== -->
+      <section class="tela ativa" id="tela-cardapio">
+        <header class="tela-topo">
+          <div>
+            <p class="sobretitulo">Hoje no balcão</p>
+            <h1>Cardápio</h1>
+          </div>
+          <div class="legenda" aria-label="Legenda">
+            <span><i class="ponto ok"></i>Disponível</span>
+            <span><i class="ponto repor"></i>Últimas unidades</span>
+            <span><i class="ponto esgotado"></i>Esgotado</span>
+          </div>
+        </header>
+        <div class="abas" id="filtroCategorias" role="tablist"></div>
+        <div id="cardapioLista" class="cardapio"></div>
+      </section>
+
+      <!-- ========================= NOVO PEDIDO ========================== -->
+      <section class="tela" id="tela-novo">
+        <header class="tela-topo">
+          <div>
+            <p class="sobretitulo" id="novoSobretitulo">Passo 1 de 2</p>
+            <h1>Novo pedido</h1>
+          </div>
+        </header>
+
+        <!-- Passo 1: quem pede e quem atende -->
+        <div id="boxAbrir" class="abrir">
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Quem está pedindo?</h2>
+              <span class="dica">Toque no cliente</span>
+            </div>
+            <div class="grade-pessoas" id="listaClientes"></div>
+          </div>
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Quem está atendendo?</h2>
+            </div>
+            <div class="grade-atendentes" id="listaFuncionarios"></div>
+          </div>
+          <div class="abrir-acao">
+            <p id="resumoAbrir">Escolha o cliente e o atendente.</p>
+            <button class="btn btn-destaque btn-grande" id="btnAbrir" disabled>Abrir pedido</button>
+          </div>
+        </div>
+
+        <!-- Passo 2: montar o pedido (estilo PDV) -->
+        <div class="montagem" id="boxMontagem" hidden>
+          <div class="painel painel-produtos">
+            <div class="ferramentas">
+              <label class="busca">
+                <svg><use href="#i-busca"/></svg>
+                <input type="search" id="buscaProduto" placeholder="Buscar produto ou código" aria-label="Buscar produto">
+              </label>
+              <div class="abas abas-mini" id="filtroCategoriasPedido"></div>
+            </div>
+            <div id="seletorProdutos" class="seletor"></div>
+            <div class="barra-adicionar">
+              <div class="sel-info">
+                <span class="rotulo">Selecionado</span>
+                <strong id="produtoSelecionado">Toque em um produto</strong>
+              </div>
+              <div class="stepper" aria-label="Quantidade">
+                <button type="button" id="qtdMenos" aria-label="Diminuir">−</button>
+                <input type="number" id="qtd" value="1" min="1" inputmode="numeric" aria-label="Quantidade">
+                <button type="button" id="qtdMais" aria-label="Aumentar">+</button>
+              </div>
+              <button class="btn btn-destaque" id="btnAdicionar" disabled>Adicionar</button>
+            </div>
+          </div>
+
+          <!-- Comanda -->
+          <aside class="comanda" aria-label="Comanda do pedido">
+            <div class="comanda-topo">
+              <div>
+                <span class="rotulo claro">Comanda</span>
+                <strong class="comanda-num" id="comandaNumero">#—</strong>
+              </div>
+              <span class="selo selo-ABERTO">Aberto</span>
+            </div>
+            <div class="comanda-quem" id="comandaQuem"></div>
+            <ul class="comanda-itens" id="comandaItens"></ul>
+            <div class="comanda-total">
+              <span>Valor bruto</span>
+              <strong id="comandaBruto">R$ 0,00</strong>
+            </div>
+            <p class="comanda-nota">O desconto de fidelidade é aplicado pelo banco ao finalizar.</p>
+            <button class="btn btn-sucesso btn-bloco btn-grande" id="btnFinalizar">Finalizar pedido</button>
+            <button class="btn btn-fantasma btn-bloco" id="btnSairPedido">Deixar em aberto</button>
+          </aside>
+        </div>
+
+        <!-- Passo 3: recibo -->
+        <div class="recibo-area" id="boxRecibo" hidden>
+          <div class="recibo">
+            <div class="recibo-check"><svg><use href="#i-check"/></svg></div>
+            <p class="sobretitulo">Pagamento registrado</p>
+            <h2 id="reciboTitulo">Pedido finalizado</h2>
+            <dl class="recibo-linhas">
+              <div><dt>Cliente</dt><dd id="reciboCliente"></dd></div>
+              <div><dt>Valor bruto</dt><dd id="reciboBruto"></dd></div>
+              <div><dt>Desconto de fidelidade</dt><dd id="reciboDesconto"></dd></div>
+            </dl>
+            <div class="recibo-total"><span>Total pago</span><strong id="reciboTotal"></strong></div>
+            <button class="btn btn-destaque btn-grande btn-bloco" id="btnNovoDeNovo">Iniciar novo pedido</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== PEDIDOS ============================ -->
+      <section class="tela" id="tela-pedidos">
+        <header class="tela-topo">
+          <div>
+            <p class="sobretitulo">Acompanhamento</p>
+            <h1>Pedidos</h1>
+          </div>
+        </header>
+        <div class="segmentos" id="filtroStatus" role="tablist">
+          <button class="seg ativo" data-status="">Todos</button>
+          <button class="seg" data-status="ABERTO">Abertos</button>
+          <button class="seg" data-status="PAGO">Pagos</button>
+          <button class="seg" data-status="CANCELADO">Cancelados</button>
+        </div>
+        <div class="painel sem-pad">
+          <div class="tabela-rolagem">
+            <table class="tabela tabela-pedidos">
+              <thead>
+                <tr>
+                  <th>Pedido</th><th>Data</th><th>Status</th><th>Cliente</th><th>Atendente</th>
+                  <th class="num">Itens</th><th class="num">Bruto</th><th class="num">Desc.</th><th class="num">Total</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="pedidosCorpo"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== GERÊNCIA =========================== -->
+      <section class="tela" id="tela-gerencia">
+        <header class="tela-topo">
+          <div>
+            <p class="sobretitulo">Painel da proprietária</p>
+            <h1>Gerência</h1>
+          </div>
+        </header>
+
+        <div class="grade-gerencia">
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Produtos para repor</h2>
+              <span class="contador" id="contadorRepor"></span>
+            </div>
+            <div id="listaRepor" class="lista-repor"></div>
+          </div>
+
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Vendas por categoria</h2>
+              <span class="dica">Somente pedidos pagos</span>
+            </div>
+            <div id="vendasGrafico" class="barras"></div>
+          </div>
+
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Reajuste de preços</h2>
+            </div>
+            <form id="formReajuste" class="form-reajuste">
+              <span class="rotulo">Categoria</span>
+              <div class="abas abas-mini" id="opcoesCategoria"></div>
+              <label class="rotulo" for="percentual">Percentual (%)</label>
+              <div class="linha-percentual">
+                <input type="number" id="percentual" step="0.01" placeholder="ex.: 10 ou -5">
+                <div class="atalhos">
+                  <button type="button" class="atalho" data-pct="-5">−5%</button>
+                  <button type="button" class="atalho" data-pct="5">+5%</button>
+                  <button type="button" class="atalho" data-pct="10">+10%</button>
+                </div>
+              </div>
+              <div class="confirmacao" id="confirmacao" hidden>
+                <p id="textoConfirmacao"></p>
+                <div class="confirmacao-botoes">
+                  <button type="button" class="btn btn-fantasma" id="btnCancelarReajuste">Cancelar</button>
+                  <button type="button" class="btn btn-destaque" id="btnConfirmarReajuste">Confirmar</button>
+                </div>
+              </div>
+              <button class="btn btn-escuro btn-bloco" type="submit" id="btnReajustar">Aplicar reajuste</button>
+            </form>
+          </div>
+
+          <div class="painel">
+            <div class="painel-topo">
+              <h2>Histórico de preços</h2>
+              <span class="dica">Gravado pelo trigger</span>
+            </div>
+            <div id="listaHistorico" class="lista-historico"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
